@@ -1,0 +1,22 @@
+<h1>商品登録</h1>
+
+<%= form_for (@product) do |f| %>
+	<div class = "field">
+		<%= f.label :商品名 %>
+		<%= f.text_field :product_name, autofocus: true, autocomplete: "product_name" %>
+	</div>
+
+	<div class = "field">
+		<%= f.label :ストック %>
+		<%= f.text_field :stock, autofocus: true, autocomplete: "stock" %>
+	</div>
+
+	<div class = "field">
+		<%= f.label :価格 %>
+		<%= f.text_field :price, autofocus: true, autocomplete: "price" %>
+	</div>
+
+	<div class="actions">
+    <%= f.submit "商品を登録" %>
+  </div>
+<% end %>

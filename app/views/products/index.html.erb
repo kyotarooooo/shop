@@ -1,0 +1,17 @@
+<h1>商品一覧一覧</h1>
+
+<% @products.each do |product| %>
+	<div class = "field">
+		<%= product.product_name %>
+	</div>
+<% end %>
+
+
+
+<% if user_signed_in? %>
+	<%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+	<%= link_to "商品を登録", new_product_path %>
+<% else %>
+	<%= link_to "新規登録", new_user_registration_path %>
+	<%= link_to "ログイン", new_user_session_path %>
+<% end %>
