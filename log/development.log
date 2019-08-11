@@ -1,0 +1,422 @@
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ bin/rails:9
+  [1m[35m (18.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  ↳ bin/rails:9
+  [1m[35m (20.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ bin/rails:9
+  [1m[35m (3.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Migrating to DeviseCreateUsers (20190809065927)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (14.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar, "last_sign_in_ip" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "name" varchar NOT NULL, "phone_number" integer NOT NULL, "postal_code" integer NOT NULL, "address" varchar NOT NULL)[0m
+  ↳ db/migrate/20190809065927_devise_create_users.rb:5
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  ↳ db/migrate/20190809065927_devise_create_users.rb:43
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  ↳ db/migrate/20190809065927_devise_create_users.rb:44
+  [1m[36mActiveRecord::SchemaMigration Create (3.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190809065927"]]
+  ↳ bin/rails:9
+  [1m[35m (12.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+Migrating to CreateProducts (20190809072951)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (14.3ms)[0m  [1m[35mCREATE TABLE "products" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "product_name" varchar, "price" integer, "stock" integer)[0m
+  ↳ db/migrate/20190809072951_create_products.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (1.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190809072951"]]
+  ↳ bin/rails:9
+  [1m[35m (8.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+Migrating to AddUserIdToProducts (20190809074101)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (13.0ms)[0m  [1m[35mALTER TABLE "products" ADD "user_id" integer[0m
+  ↳ db/migrate/20190809074101_add_user_id_to_products.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (1.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190809074101"]]
+  ↳ bin/rails:9
+  [1m[35m (7.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+Migrating to CreateCarts (20190809075319)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (12.0ms)[0m  [1m[35mCREATE TABLE "carts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20190809075319_create_carts.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (1.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190809075319"]]
+  ↳ bin/rails:9
+  [1m[35m (8.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+Migrating to CreateCartItems (20190809075347)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (12.1ms)[0m  [1m[35mCREATE TABLE "cart_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "quantity" integer, "product_id" integer, "cart_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_681a180e84"
+FOREIGN KEY ("product_id")
+  REFERENCES "products" ("id")
+, CONSTRAINT "fk_rails_6cdb1f0139"
+FOREIGN KEY ("cart_id")
+  REFERENCES "carts" ("id")
+)[0m
+  ↳ db/migrate/20190809075347_create_cart_items.rb:3
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE  INDEX "index_cart_items_on_product_id" ON "cart_items" ("product_id")[0m
+  ↳ db/migrate/20190809075347_create_cart_items.rb:3
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE  INDEX "index_cart_items_on_cart_id" ON "cart_items" ("cart_id")[0m
+  ↳ db/migrate/20190809075347_create_cart_items.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (2.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190809075347"]]
+  ↳ bin/rails:9
+  [1m[35m (8.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+Migrating to AddPurchasedAtToProducts (20190811061025)
+  [1m[35m (5.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Migrating to AddPurchasedAtToProducts (20190811061025)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (17.0ms)[0m  [1m[35mALTER TABLE "products" ADD "purchased_at" datetime[0m
+  ↳ db/migrate/20190811061025_add_purchased_at_to_products.rb:3
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "products" ADD "purchase" boolean DEFAULT 0 NOT NULL[0m
+  ↳ db/migrate/20190811061025_add_purchased_at_to_products.rb:4
+  [1m[36mActiveRecord::SchemaMigration Create (3.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190811061025"]]
+  ↳ bin/rails:9
+  [1m[35m (9.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+  [1m[36mActiveRecord::InternalMetadata Load (4.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[36mActiveRecord::InternalMetadata Create (13.7ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2019-08-11 06:13:13.770751"], ["updated_at", "2019-08-11 06:13:13.770751"]]
+  ↳ bin/rails:9
+  [1m[35m (9.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (7.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Started GET "/" for 10.0.2.2 at 2019-08-11 06:27:04 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+  [1m[35m (4.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /var/lib/gems/2.5.0/gems/activerecord-5.2.3/lib/active_record/log_subscriber.rb:98
+Processing by UsersController#index as HTML
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (5.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:3
+  Rendered users/index.html.erb within layouts/application (33.7ms)
+Completed 200 OK in 8347ms (Views: 8204.5ms | ActiveRecord: 14.7ms)
+
+
+Started GET "/users/sign_in" for 10.0.2.2 at 2019-08-11 06:27:17 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by Devise::SessionsController#new as HTML
+  Rendering users/sessions/new.html.erb within layouts/application
+  Rendered users/shared/_links.html.erb (3.2ms)
+  Rendered users/sessions/new.html.erb within layouts/application (702.0ms)
+Completed 200 OK in 1740ms (Views: 1680.1ms | ActiveRecord: 12.4ms)
+
+
+Started POST "/users/sign_in" for 10.0.2.2 at 2019-08-11 06:27:25 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"+xXTXXGRQU9F+qV3Ui8KTLxPRD6wq8Q3wZ80VB/5Jm7dcwyIlYWQsN1fWt2UWt/mzsmDkaz/sm6oqEfOje/TbQ==", "user"=>{"email"=>"aaa@aaa.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"ログイン"}
+  [1m[36mUser Load (5.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "aaa@aaa.com"], ["LIMIT", 1]]
+  ↳ /var/lib/gems/2.5.0/gems/activerecord-5.2.3/lib/active_record/log_subscriber.rb:98
+Completed 401 Unauthorized in 16ms (ActiveRecord: 5.8ms)
+
+
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"+xXTXXGRQU9F+qV3Ui8KTLxPRD6wq8Q3wZ80VB/5Jm7dcwyIlYWQsN1fWt2UWt/mzsmDkaz/sm6oqEfOje/TbQ==", "user"=>{"email"=>"aaa@aaa.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"ログイン"}
+  Rendering users/sessions/new.html.erb within layouts/application
+  Rendered users/shared/_links.html.erb (3.0ms)
+  Rendered users/sessions/new.html.erb within layouts/application (129.1ms)
+Completed 200 OK in 1409ms (Views: 1126.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_up" for 10.0.2.2 at 2019-08-11 06:27:34 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering users/registrations/new.html.erb within layouts/application
+  Rendered /var/lib/gems/2.5.0/gems/devise-4.6.2/app/views/devise/shared/_error_messages.html.erb (3.2ms)
+  Rendered users/shared/_links.html.erb (4.0ms)
+  Rendered users/registrations/new.html.erb within layouts/application (268.7ms)
+Completed 200 OK in 1340ms (Views: 1338.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for 10.0.2.2 at 2019-08-11 06:28:16 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"389vH9nRDqXF9erw6u+mYqQro1aQN4zYnAPq5DPuue3KGt7FGxBcTbbIramb1gC3P/vUfmOqvnuNlUgZUf0FOw==", "user"=>{"name"=>"けけけ", "email"=>"zzz@zzz.com", "phone_number"=>"11111111111", "postal_code"=>"1111111", "address"=>"東京都渋谷区", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"登録"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /var/lib/gems/2.5.0/gems/activerecord-5.2.3/lib/active_record/log_subscriber.rb:98
+  [1m[36mUser Exists (4.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "zzz@zzz.com"], ["LIMIT", 1]]
+  ↳ /var/lib/gems/2.5.0/gems/activerecord-5.2.3/lib/active_record/log_subscriber.rb:98
+  [1m[36mUser Create (13.9ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "name", "phone_number", "postal_code", "address") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["email", "zzz@zzz.com"], ["encrypted_password", "$2a$11$BZksVt4wypABdugVXP7weeG3MIvUTHId9YtUmwioVMdZ6z4b6S62i"], ["created_at", "2019-08-11 06:28:17.215712"], ["updated_at", "2019-08-11 06:28:17.215712"], ["name", "けけけ"], ["phone_number", 11111111111], ["postal_code", 1111111], ["address", "東京都渋谷区"]]
+  ↳ /var/lib/gems/2.5.0/gems/activerecord-5.2.3/lib/active_record/log_subscriber.rb:98
+  [1m[35m (14.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /var/lib/gems/2.5.0/gems/activerecord-5.2.3/lib/active_record/log_subscriber.rb:98
+Redirected to http://localhost:3000/
+Completed 302 Found in 766ms (ActiveRecord: 32.9ms)
+
+
+Started GET "/" for 10.0.2.2 at 2019-08-11 06:28:17 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by UsersController#index as HTML
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (5.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:3
+  [1m[36mUser Load (4.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/users/index.html.erb:9
+  Rendered users/index.html.erb within layouts/application (23.4ms)
+Completed 200 OK in 1010ms (Views: 893.7ms | ActiveRecord: 10.1ms)
+
+
+Started GET "/products" for 10.0.2.2 at 2019-08-11 06:28:22 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ProductsController#index as HTML
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mProduct Load (4.4ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/views/products/index.html.erb:3
+  [1m[36mUser Load (4.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/products/index.html.erb:11
+  Rendered products/index.html.erb within layouts/application (28.1ms)
+Completed 200 OK in 1079ms (Views: 929.6ms | ActiveRecord: 16.4ms)
+
+
+Started GET "/products/new" for 10.0.2.2 at 2019-08-11 06:28:24 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ProductsController#new as HTML
+  Rendering products/new.html.erb within layouts/application
+  Rendered products/new.html.erb within layouts/application (9.5ms)
+Completed 200 OK in 932ms (Views: 797.3ms | ActiveRecord: 7.8ms)
+
+
+Started POST "/products" for 10.0.2.2 at 2019-08-11 06:28:33 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ProductsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"qZCEgYCwSIm/rMrDQ21Tl+xsuD8XY91q3dUmVdaslDnc14I2denvTdy4AkDs5IUIOzwD1lprBZrwiZBmkuVbgA==", "product"=>{"product_name"=>"ラケット", "stock"=>"", "price"=>""}, "commit"=>"商品を登録"}
+  [1m[36mUser Load (5.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/products_controller.rb:9
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/products_controller.rb:10
+  [1m[36mProduct Create (19.1ms)[0m  [1m[32mINSERT INTO "products" ("created_at", "updated_at", "product_name", "user_id") VALUES (?, ?, ?, ?)[0m  [["created_at", "2019-08-11 06:28:33.552609"], ["updated_at", "2019-08-11 06:28:33.552609"], ["product_name", "ラケット"], ["user_id", 1]]
+  ↳ app/controllers/products_controller.rb:10
+  [1m[35m (12.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/products_controller.rb:10
+Redirected to http://localhost:3000/
+Completed 302 Found in 67ms (ActiveRecord: 36.4ms)
+
+
+Started GET "/" for 10.0.2.2 at 2019-08-11 06:28:33 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by UsersController#index as HTML
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (4.0ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:3
+  [1m[36mUser Load (4.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/users/index.html.erb:9
+  Rendered users/index.html.erb within layouts/application (18.8ms)
+Completed 200 OK in 877ms (Views: 784.2ms | ActiveRecord: 8.2ms)
+
+
+Started GET "/products" for 10.0.2.2 at 2019-08-11 06:28:35 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ProductsController#index as HTML
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mProduct Load (4.7ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/views/products/index.html.erb:3
+  [1m[36mUser Load (4.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/products/index.html.erb:11
+  Rendered products/index.html.erb within layouts/application (18.3ms)
+Completed 200 OK in 957ms (Views: 861.5ms | ActiveRecord: 9.0ms)
+
+
+Started GET "/products/new" for 10.0.2.2 at 2019-08-11 06:28:37 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ProductsController#new as HTML
+  Rendering products/new.html.erb within layouts/application
+  Rendered products/new.html.erb within layouts/application (7.8ms)
+Completed 200 OK in 846ms (Views: 764.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/products" for 10.0.2.2 at 2019-08-11 06:28:53 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ProductsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"6yJ7x9HwyikaqrQg445lV7HjuAcYppUbBF98ta+hQpmeZX1wJKlt7Xm+fKNMB7PIZrMD7lWuTespA8qG6+iNIA==", "product"=>{"product_name"=>"グリップ", "stock"=>"1", "price"=>"1000"}, "commit"=>"商品を登録"}
+  [1m[36mUser Load (4.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/products_controller.rb:9
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/products_controller.rb:10
+  [1m[36mProduct Create (46.5ms)[0m  [1m[32mINSERT INTO "products" ("created_at", "updated_at", "product_name", "price", "stock", "user_id") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", "2019-08-11 06:28:53.732763"], ["updated_at", "2019-08-11 06:28:53.732763"], ["product_name", "グリップ"], ["price", 1000], ["stock", 1], ["user_id", 1]]
+  ↳ app/controllers/products_controller.rb:10
+  [1m[35m (10.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/products_controller.rb:10
+Redirected to http://localhost:3000/
+Completed 302 Found in 80ms (ActiveRecord: 62.0ms)
+
+
+Started GET "/" for 10.0.2.2 at 2019-08-11 06:28:53 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by UsersController#index as HTML
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (4.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:3
+  [1m[36mUser Load (4.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/users/index.html.erb:9
+  Rendered users/index.html.erb within layouts/application (16.1ms)
+Completed 200 OK in 993ms (Views: 888.3ms | ActiveRecord: 8.2ms)
+
+
+Started GET "/products" for 10.0.2.2 at 2019-08-11 06:28:56 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ProductsController#index as HTML
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mProduct Load (4.3ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/views/products/index.html.erb:3
+  [1m[36mUser Load (4.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/products/index.html.erb:11
+  Rendered products/index.html.erb within layouts/application (17.8ms)
+Completed 200 OK in 1016ms (Views: 912.6ms | ActiveRecord: 8.7ms)
+
+
+Started GET "/products/2" for 10.0.2.2 at 2019-08-11 06:28:59 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ProductsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mProduct Load (3.6ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/products_controller.rb:22
+  Rendering products/show.html.erb within layouts/application
+  Rendered products/show.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 972ms (Views: 891.2ms | ActiveRecord: 3.6ms)
+
+
+Started GET "/products/2/purchase" for 10.0.2.2 at 2019-08-11 06:29:01 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ProductsController#purchase as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mProduct Load (5.4ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/products_controller.rb:26
+  Rendering products/purchase.html.erb within layouts/application
+  Rendered products/purchase.html.erb within layouts/application (1.7ms)
+Completed 200 OK in 794ms (Views: 713.5ms | ActiveRecord: 5.4ms)
+
+
+Started PATCH "/products/2/purchase_confirm" for 10.0.2.2 at 2019-08-11 06:29:12 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ProductsController#purchase_confirm as HTML
+  Parameters: {"authenticity_token"=>"mYc4CQCT9skDq/4vNIZEWpiL/OyDOOP/CyaixWsqjsyIbiBsDNMIuqCSklXCtj/uYlz+/3xIcQa4LUGH5amrpg==", "id"=>"2"}
+  [1m[36mProduct Load (5.2ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/products_controller.rb:30
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/products_controller.rb:31
+  [1m[36mUser Load (4.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/products_controller.rb:31
+  [1m[36mProduct Update (12.7ms)[0m  [1m[33mUPDATE "products" SET "purchase" = ?, "purchased_at" = ?, "updated_at" = ? WHERE "products"."id" = ?[0m  [["purchase", 1], ["purchased_at", "2019-08-11 06:29:12.141302"], ["updated_at", "2019-08-11 06:29:12.252841"], ["id", 2]]
+  ↳ app/controllers/products_controller.rb:31
+  [1m[35m (10.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/products_controller.rb:31
+Redirected to http://localhost:3000/
+Completed 302 Found in 153ms (ActiveRecord: 32.6ms)
+
+
+Started GET "/" for 10.0.2.2 at 2019-08-11 06:29:12 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by UsersController#index as HTML
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (3.9ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:3
+  [1m[36mUser Load (4.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/users/index.html.erb:9
+  Rendered users/index.html.erb within layouts/application (15.7ms)
+Completed 200 OK in 993ms (Views: 891.9ms | ActiveRecord: 8.3ms)
+
+
+  [1m[36mProduct Load (4.4ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+Started GET "/" for 10.0.2.2 at 2019-08-11 06:30:59 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+  [1m[35m (5.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /var/lib/gems/2.5.0/gems/activerecord-5.2.3/lib/active_record/log_subscriber.rb:98
+Processing by UsersController#index as HTML
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (5.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:3
+  [1m[36mUser Load (4.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/users/index.html.erb:9
+  Rendered users/index.html.erb within layouts/application (110.5ms)
+Completed 200 OK in 2988ms (Views: 2826.3ms | ActiveRecord: 35.9ms)
+
+
+Started GET "/products" for 10.0.2.2 at 2019-08-11 06:31:18 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ProductsController#index as HTML
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mProduct Load (5.3ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+  ↳ app/views/products/index.html.erb:3
+  [1m[36mUser Load (4.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/products/index.html.erb:11
+  Rendered products/index.html.erb within layouts/application (64.2ms)
+Completed 200 OK in 1092ms (Views: 936.7ms | ActiveRecord: 29.0ms)
+
+
+Started GET "/products/2" for 10.0.2.2 at 2019-08-11 06:31:21 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ProductsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mProduct Load (6.0ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/products_controller.rb:22
+  Rendering products/show.html.erb within layouts/application
+  Rendered products/show.html.erb within layouts/application (395.9ms)
+Completed 500 Internal Server Error in 741ms (ActiveRecord: 6.0ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `purchase' for #<#<Class:0x00007f0fc406c108>:0x00007f0fb40377d8>):
+    3: <%= @product.stock %>
+    4: 
+    5: 
+    6: <% if purchase == true %>
+    7: 
+    8: <% else %>
+    9: <%= link_to "購入手続きへ進む", purchase_path(@product) %>
+  
+app/views/products/show.html.erb:6:in `_app_views_products_show_html_erb___708569622063362361_69852710649940'
+Started GET "/products/2" for 10.0.2.2 at 2019-08-11 06:32:48 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+  [1m[35m (4.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /var/lib/gems/2.5.0/gems/activerecord-5.2.3/lib/active_record/log_subscriber.rb:98
+Processing by ProductsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mProduct Load (4.3ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/products_controller.rb:22
+  Rendering products/show.html.erb within layouts/application
+  Rendered products/show.html.erb within layouts/application (399.1ms)
+Completed 500 Internal Server Error in 844ms (ActiveRecord: 23.3ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `purchase' for #<#<Class:0x00007fbe40494d68>:0x0000555f20468d70>):
+    3: <%= @product.stock %>
+    4: 
+    5: 
+    6: <% if purchase == true %>
+    7: 
+    8: <% else %>
+    9: <%= link_to "購入手続きへ進む", purchase_path(@product) %>
+  
+app/views/products/show.html.erb:6:in `_app_views_products_show_html_erb___1860309600960170054_70227549531480'
+Started GET "/products/2" for 10.0.2.2 at 2019-08-11 06:34:54 +0000
+Cannot render console from 10.0.2.2! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ProductsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mProduct Load (5.5ms)[0m  [1m[34mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/products_controller.rb:22
+  Rendering products/show.html.erb within layouts/application
+  Rendered products/show.html.erb within layouts/application (413.4ms)
+Completed 500 Internal Server Error in 816ms (ActiveRecord: 5.5ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `purchase' for #<#<Class:0x00007fbe40494d68>:0x00007fbe40d2a130>):
+    3: <%= @product.stock %>
+    4: 
+    5: 
+    6: <% if purchase == true %>
+    7: <p>SOLDOUT</p>
+    8: <% else %>
+    9: <%= link_to "購入手続きへ進む", purchase_path(@product) %>
+  
+app/views/products/show.html.erb:6:in `_app_views_products_show_html_erb___1860309600960170054_70227554030880'

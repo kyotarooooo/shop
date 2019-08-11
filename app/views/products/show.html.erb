@@ -1,0 +1,10 @@
+<%= @product.product_name %>
+<%= @product.price %>
+<%= @product.stock %>
+
+
+<% if purchase = true %>
+	<p>SOLDOUT</p>
+<% else %>
+	<%= link_to "購入手続きへ進む", purchase_path(@product) %>
+<% end %>

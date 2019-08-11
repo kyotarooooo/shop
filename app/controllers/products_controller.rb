@@ -18,6 +18,20 @@ class ProductsController < ApplicationController
 		@products = Product.all
 	end
 
+	def show
+		@product = Product.find(params[:id])
+	end
+
+	def purchase
+		@product = Product.find(params[:id])
+	end
+
+	def purchase_confirm
+		@product = Product.find(params[:id])
+		@product.update(purchase: true, purchased_at: Time.current)
+		redirect_to root_path
+	end
+
 	private
 	def product_params
 		params.require(:product).permit(:user_id, :product_name, :stock, :price)

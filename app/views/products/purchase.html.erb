@@ -1,0 +1,5 @@
+<%= @product.product_name %>
+<%= @product.price %>
+<%= @product.stock %>
+
+<%= link_to "購入する", purchase_confirm_path(@product.id), method: :patch %>
